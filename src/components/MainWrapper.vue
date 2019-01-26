@@ -70,7 +70,8 @@ export default {
             percent:0,
         }
     },
-    components:{
+    props:{
+        onEnd:Function
     },
     methods:{
         onUnlock() {
@@ -82,10 +83,14 @@ export default {
             }
             new Audio(DING_SOUND).play();
             this.cards.forEach(card=> card.flipped = card.done);
-            this.locked = false;
-            this.rounds++;
             const totalDone  = this.cards.filter(card=>card.done);
             this.percent = (totalDone.length/this.cards.length)*100;
+             if (this.percent === 100) {
+                this.onEnd(this.rounds);
+            }
+            this.locked = false;
+            this.rounds++;
+           
         },
         flipCard (card){
             if (this.locked || card.flipped) return;

@@ -3,34 +3,53 @@
     <div class="background">
         <img src="./assets/backgrounds/back1.jpg"/>
     </div>
-    <MainWrapper v-if="state === 'GAME'"/>
     <Enterance :on-start="onStart" v-if="state === 'ENTERANCE'"/>
+    <MainWrapper :on-end="onEnd" v-if="state === 'GAME'"/>
+    <Ending :replay="onRestart" :score="score" v-if="state === 'END'"/>
   </div>
 </template>
 
 <script>
 import MainWrapper from './components/MainWrapper.vue'
 import Enterance from './components/Enterance.vue'
+import Ending from './components/Ending.vue'
+const MUSIC = 'https://instrumentalfx.co/wp-content/upload/10/Thomas-The-Tank-Engine-Theme-Song.mp3';
 
 const STATES = {
   ENTERANCE:"ENTERANCE",
   GAME:"GAME",
+  END:"END",
 }
 
 export default {
   name: 'app',
+  created: async()=>{
+      const media = new Audio(MUSIC);
+      media.addEventListener('canplaythrough', ()=>{
+          media.loop = true;
+          media.play();
+      }, false);
+  },
   data:()=>({
-    state:STATES.ENTERANCE
-    // state:STATES.GAME
+    state:STATES.ENTERANCE,
+    score:0,
   }),
   methods:{
     onStart(){
       this.state = STATES.GAME;
+    },
+    onEnd(score){
+      this.score = score;
+      this.state = STATES.END;
+    },
+    onRestart(){
+      this.state = STATES.ENTERANCE;
     }
   },
   components: {
     MainWrapper,
-    Enterance
+    Enterance,
+    Ending
   }
 }
 </script>

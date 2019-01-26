@@ -10,17 +10,9 @@
 <script>
 
 const CLICK_SOUND = 'http://soundbible.com/mp3/Click2-Sebastian-759472264.mp3';
-const MUSIC = 'https://instrumentalfx.co/wp-content/upload/10/Thomas-The-Tank-Engine-Theme-Song.mp3';
 
 export default {
     name:"Enterance",
-    created:async()=>{
-        const media = new Audio(MUSIC);
-        const playPromise = media.play();
-        if (playPromise !== null){
-            playPromise.catch(() => { media.play(); })
-        }
-    },
     methods:{
         start(){
             new Audio(CLICK_SOUND).play();
