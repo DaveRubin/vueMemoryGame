@@ -1,4 +1,6 @@
 <template>
+<div>
+    
     <div class="main-container">
         <div class="info">
             <div class="rounds-count">
@@ -31,20 +33,15 @@
             </div>
         </div>
     </div> 
+    </div>
 </template>
 
 <script>
-import Card from './Card';
 import {getShuffleImages} from './consts';
 
 const DING_SOUND = 'http://soundbible.com/mp3/Elevator Ding-SoundBible.com-685385892.mp3';
 const CHEER_SOUND = 'https://freesound.org/data/previews/333/333404_5884138-lq.mp3';
 
-
-const getCard =(images)=> (val,index)=> {
-    const url = require(images[index]);
-    return {id:index,title:`A${index}`,flipped:false,url };
-}
 
 export default {
     name:"MainWrapper",
@@ -74,7 +71,6 @@ export default {
         }
     },
     components:{
-        Card
     },
     methods:{
         onUnlock() {
@@ -148,6 +144,8 @@ export default {
 }
 
 .main-container{
+    box-shadow:  0px 0px 60px 30px rgba(0,0,0,0.75);
+    background-color: rgba(0, 0, 0, 0.75);
     width: 640px;
     margin: auto;
 }
